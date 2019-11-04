@@ -11,7 +11,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-public class TestBase {
+import com.qa.interfaces.ITestBase;
+
+public class TestBase implements ITestBase{
 
 	public static WebDriver driver;
 	public static Properties properties;
@@ -35,7 +37,7 @@ public class TestBase {
 	}
 
 	@AfterClass
-	public void name() {
+	public void quit() {
 		driver.quit();
 		logger.info("All browsers closed successfully.");
 	}

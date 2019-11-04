@@ -19,7 +19,7 @@ private static Logger logger = Logger.getLogger(Login.class);
 		String password=properties.getProperty("password");
 		LoginPage login = PageFactory.initElements(driver, LoginPage.class);
 		//login.loginAppl();
-		login.login(username,password);
+		login.login();
 		logger.info("User logged in GEMS application successfully.");
 	}
 }

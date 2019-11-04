@@ -17,8 +17,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.qa.base.TestBase;
 
-public class LoginPage {
+
+public class LoginPage extends TestBase{
 
 	private static Logger logger = Logger.getLogger(LoginPage.class);
 	String fileName = ".\\data\\inputdata.xlsx";
@@ -29,8 +31,10 @@ public class LoginPage {
 	WebDriver driver = null;
 	WebDriverWait wait;
 
-	@FindBy(id = "username")
+	@FindBy(id = "identifierId")
 	public WebElement username;
+	@FindBy(xpath="//*[text()='Next']")
+	public WebElement next;
 	@FindBy(id = "password")
 	private WebElement password;
 	@FindBy(id = "login-submit")
@@ -57,8 +61,8 @@ public class LoginPage {
 					.isDisplayed();
 			logger.info("USER LOCATOR DISPLAYING SUCCESSFULLY : " + userState);
 			password.sendKeys(pwd);
-			boolean passState = wait.until(ExpectedConditions.visibilityOf(password)).isDisplayed();
-			logger.info("PASSWORD LOCATOR DISPLAYING SUCCESSFULLY : " + passState);
+			boolean passState = wait.until(ExpectedConditions.visibilityOf(password)).isEnabled();
+			logger.info("PASSWORD LOCATOR ENABLED SUCCESSFULLY : " + passState);
 			boolean siginState = wait.until(ExpectedConditions.visibilityOf(login)).isEnabled();
 			login.submit();
 			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -75,13 +79,11 @@ public class LoginPage {
 		logger.info("User exits gemsLogin()");
 	}
 	
-	public void login(String user, String pwd) throws InterruptedException {
+	public void login() throws InterruptedException {
 		Thread.sleep(3000);
-		username.sendKeys(user);
+		username.sendKeys(properties.getProperty("username"));
 		Thread.sleep(3000);
-		password.sendKeys(pwd);
-		Thread.sleep(3000);
-		login.click();
-		Thread.sleep(3000);
+		next.click();;
+		Thread.sleep(5000);
 	}
 }
